@@ -1,5 +1,6 @@
 package lynkattu.example.designer_tool.user;
 
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -59,5 +60,15 @@ public class UserService {
                 userEntity.getEmail(),
                 userRequest.getPhone()
         );
+    }
+
+    @Transactional
+    public void deleteUserById(UUID id) {
+        repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "User not found"
+                ));
+        repository.deleteById(id);
     }
 }
