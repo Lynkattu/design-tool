@@ -10,4 +10,14 @@ public record UserDTO(
         String email,
         String phone
 ) {
+    public static UserDTO from(UserEntity user) {
+        return new UserDTO(
+                user.getId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getPhone()
+        );
+    }
 }

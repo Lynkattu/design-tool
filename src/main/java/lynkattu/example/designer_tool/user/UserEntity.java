@@ -44,6 +44,11 @@ public class UserEntity {
                 id, firstName, lastName, email, phone);
     }
 
+    // setters
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     // getters
     public UUID getId() {
         return id;

@@ -11,6 +11,6 @@ Partially supports users.
 
 ## Installation
  Create .env file on root and write next lines on that file. Change value to match your postgresql database.  
- > DB_USERNAME="postgres"
- > DB_URL="jdbc:postgresql://localhost:5432/design_tool"
- > DB_PASSWORD="your password"
+ > DB_USERNAME="postgres" <br>
+ > DB_URL="jdbc:postgresql://localhost:5432/design_tool" <br>
+ > DB_PASSWORD="your password" <br>
