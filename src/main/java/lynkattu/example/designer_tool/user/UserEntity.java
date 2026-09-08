@@ -14,27 +14,35 @@ public class UserEntity {
     @GeneratedValue(strategy= GenerationType.UUID)
     private UUID id;
     @NotBlank
+    @Column(nullable = false)
     private String firstName;
     @NotBlank
+    @Column(nullable = false)
     private String lastName;
+    @NotBlank
+    @Column(unique = true, nullable = false)
     private String username;
     @NotBlank
     @Email
+    @Column(unique = true, nullable = false)
     private String email;
     private String phone;
     @NotBlank
     private String password;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     // default constructor is just for jpa
     protected UserEntity() {}
 
-    public UserEntity(String firstName, String lastName, String email, String phone, String password, String username) {
+    public UserEntity(String firstName, String lastName, String email, String phone, String password, String username, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.email = email;
         this.phone = phone;
         this.password = password;
+        this.role = role;
     }
 
     @Override
@@ -76,5 +84,9 @@ public class UserEntity {
 
     public String getPassword() {
         return  password;
+    }
+
+    public Role getRole() {
+        return role;
     }
 }
