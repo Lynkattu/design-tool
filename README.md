@@ -1,7 +1,7 @@
 # Designer tool
 This tool is created for game designing. This tool can help for creating GDD (game design document). <br>
 ## Current features
-Partially supports users.
+Supports users and authentication.
 ## Planned features
 - Mood board
 - UI design tool
