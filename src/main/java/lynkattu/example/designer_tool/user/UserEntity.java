@@ -3,16 +3,26 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
+import lynkattu.example.designer_tool.project.ProjectEntity;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
 public class UserEntity {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Getter
     @NotBlank
     @Column(nullable = false)
     private String firstName;
@@ -31,6 +41,12 @@ public class UserEntity {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToMany(mappedBy = "owner")
+    private List<ProjectEntity> projects;
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
+    @CreatedDate
+    private LocalDateTime createdAt;
 
     // default constructor is just for jpa
     protected UserEntity() {}
@@ -50,43 +66,5 @@ public class UserEntity {
         return String.format(
                 "User[id=%s, firstName='%s', lastName='%s', email='%s', phone='%s']",
                 id, firstName, lastName, email, phone);
-    }
-
-    // setters
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    // getters
-    public UUID getId() {
-        return id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getPassword() {
-        return  password;
-    }
-
-    public Role getRole() {
-        return role;
     }
 }

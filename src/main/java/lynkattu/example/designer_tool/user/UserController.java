@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("")
-    public ResponseEntity<UserDTO> postUser(@Valid @RequestBody UserEntity userRequest) {
+    public ResponseEntity<UserDTO> saveUser(@Valid @RequestBody UserEntity userRequest) {
         UserDTO user = service.saveUser(userRequest);
 
         return ResponseEntity
@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable UUID id) {
+    public ResponseEntity<String> deleteUserById(@PathVariable UUID id) {
         service.deleteUserById(id);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
