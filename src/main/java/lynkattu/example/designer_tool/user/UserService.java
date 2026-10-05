@@ -46,6 +46,15 @@ public class UserService {
         return UserDTO.from(foundUser);
     }
 
+    public UserDTO findUserByUsername(String username) {
+        UserEntity foundUser = repository.findByUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "User not found"
+                ));
+        return UserDTO.from(foundUser);
+    }
+
     public UserDTO saveUser(UserEntity user) {
         user.setPassword(hashPassword(user.getPassword()));
 

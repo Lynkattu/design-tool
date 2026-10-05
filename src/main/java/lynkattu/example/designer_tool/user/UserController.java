@@ -34,6 +34,15 @@ public class UserController {
                 .body(user);
     }
 
+    @GetMapping("/username/{username}")
+    public ResponseEntity<UserDTO> findUserByUsername(@PathVariable String username) {
+        UserDTO user = service.findUserByUsername(username);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(user);
+    }
+
     @PostMapping("")
     public ResponseEntity<UserDTO> saveUser(@Valid @RequestBody UserEntity userRequest) {
         UserDTO user = service.saveUser(userRequest);
