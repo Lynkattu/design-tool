@@ -59,5 +59,4 @@ public class UserController {
                 .status(HttpStatus.NO_CONTENT)
                 .body("User deleted successfully");
     }
-
 }
