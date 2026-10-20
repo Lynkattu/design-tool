@@ -1,3 +1,7 @@
+logging:
+  level:
+    org.springframework.security: DEBUG
+
 app:
   upload:
     dir: uploads/user-icons
@@ -10,6 +14,11 @@ spring:
     url: ${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+
+  servlet:
+    multipart:
+      max-file-size: 3MB
+      max-request-size: 4MB
 
   jpa:
     hibernate:

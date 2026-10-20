@@ -6,6 +6,10 @@ target/
 
 *.env
 
+### ignore files in folders ###
+uploads/*
+!uploads/.gitkeep
+
 ### STS ###
 .apt_generated
 .classpath
