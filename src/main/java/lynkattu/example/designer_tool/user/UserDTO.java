@@ -8,7 +8,8 @@ public record UserDTO(
         String lastName,
         String username,
         String email,
-        String phone
+        String phone,
+        UserIconEntity userIcon
 ) {
     public static UserDTO from(UserEntity user) {
         return new UserDTO(
@@ -17,7 +18,8 @@ public record UserDTO(
                 user.getLastName(),
                 user.getUsername(),
                 user.getEmail(),
-                user.getPhone()
+                user.getPhone(),
+                user.getUserIcon()
         );
     }
 }
