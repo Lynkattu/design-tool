@@ -12,23 +12,22 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.UUID;
 
 @Service
 public class UserService {
     final private UserRepository repository;
+    final private UserIconRepository iconRepository;
     final private PasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
-    private final Path uploadDir =
-            Paths.get("uploads/user-icons").toAbsolutePath().normalize();
+    private final Path uploadDir = Paths.get("uploads/user-icons").toAbsolutePath().normalize();
 
 
-
-
-
-    public UserService (UserRepository repository) {
+    public UserService (UserRepository repository, UserIconRepository iconRepository) {
         this.repository = repository;
+        this.iconRepository = iconRepository;
     }
 
     public String hashPassword(String password) {
@@ -67,7 +66,12 @@ public class UserService {
     }
 
     public UserDTO saveUser(UserEntity user) {
+
+        UserIconEntity userIcon = new UserIconEntity();
+        userIcon.setIconUrl("default-icon.png");
+
         user.setPassword(hashPassword(user.getPassword()));
+        user.setUserIcon(userIcon);
 
         repository.save(user);
 
@@ -100,9 +104,16 @@ public class UserService {
             default -> ".jpg";
         };
 
-        String filename = UUID.randomUUID() + extension;
+        UUID userIconId = repository.findUserIconById(id).orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "user or icon not found"
+        ));
+
+        String filename = userIconId + extension;
         Path destination = uploadDir.resolve(filename).normalize();
-        Files.copy(file.getInputStream(), destination);
+
+        iconRepository.updateUserIcon(filename, userIconId);
+        Files.copy(file.getInputStream(), destination, StandardCopyOption.REPLACE_EXISTING);
         return filename;
     }
 

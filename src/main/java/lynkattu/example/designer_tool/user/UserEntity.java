@@ -43,8 +43,8 @@ public class UserEntity {
     private Role role;
     @OneToMany(mappedBy = "owner")
     private List<ProjectEntity> projects;
-    @OneToOne(optional = true, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "icon_id", referencedColumnName = "id", unique = true, nullable = true)
+    @OneToOne(optional = false, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "icon_id", referencedColumnName = "id", unique = true, nullable = false)
     private UserIconEntity userIcon;
     @LastModifiedDate
     private LocalDateTime updatedAt;

@@ -11,4 +11,7 @@ public interface UserRepository extends CrudRepository<UserEntity, UUID> {
     @Query(value = "SELECT * FROM users WHERE username = ?1", nativeQuery = true)
     Optional<UserEntity> findByUsername(String username);
 
+    @Query(value = "SELECT icon_id FROM users WHERE id = ?1", nativeQuery = true)
+    Optional<UUID> findUserIconById(UUID id);
+
 }
